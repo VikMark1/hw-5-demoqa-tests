@@ -1,6 +1,8 @@
+from selene.support.conditions import have
 from selene.support.shared import browser
 
 
-def select_checkbox():
-    browser.element('[for="hobbies-checkbox-2"]').click()
+def select_checkbox(elements, *options: str):
+    for option in options:
+        elements.by(have.exact_text(option)).first.element('..').click()
 

@@ -1,5 +1,5 @@
 from selene.support.shared import browser
 
 
-def select_choice():
-    browser.element('[for=gender-radio-2]').double_click()
+def select_choice(number: int):
+    browser.element(f'[for=gender-radio-{number}]').double_click()

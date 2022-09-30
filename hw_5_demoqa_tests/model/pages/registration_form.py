@@ -1,10 +1,14 @@
 from typing import Tuple
 from selene import have, command
 from selene.support.shared import browser
-from hw_5_demoqa_tests.model.controls import dropdown
-
+import hw_5_demoqa_tests
+from hw_5_demoqa_tests import config
+from hw_5_demoqa_tests.model.controls import dropdown, radiobutton, datepicker, checkbox, file_attach
+from hw_5_demoqa_tests.model.data import user
+import datetime
 
 state = browser.element('#state')
+birthday = browser.element('#dateOfBirthInput')
 
 def fill_firstname(firstname: str):
     browser.element('#firstName').send_keys(firstname)
@@ -47,3 +51,20 @@ def should_have_submitted(data):
     rows = dialog.all('tbody tr')
     for row, value in data:
         rows.element_by(have.text(row)).all('td')[1].should(have.exact_text(value))
+
+def fill_gender(value: user.Gender):
+    radiobutton.select_choice(value.value) #noqa
+
+def fill_birthday(date: datetime.date):
+    datepicker.select_date(birthday, date)
+
+#def assert_filled_birthday(date: datetime.date):
+    #birthday.should(datepicker.have_date(date))
+
+def fill_hobbies(*options: user.Hobby):
+    checkbox.select_checkbox(
+        browser.all('[for^=hobbies-checkbox]'), *[option.value for option in options]
+    )
+
+def select_picture(relative_path):
+    file_attach.add_pict(relative_path)
