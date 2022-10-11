@@ -36,5 +36,5 @@ def test_student_registration_form():
     )
 
 #High-level business step ->
-def test_submit_user():
-    app.submit_form.submit()
+#def test_submit_user():
+    #app.submit_form.submit()
